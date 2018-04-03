@@ -33,4 +33,11 @@
 
     $result_getDate = $trip->getDate() == "2018-04-02 00:00:00" ? "pass" : "fail";
     echo ("Test getDate(): " . $result_getDate . "<br/>");
+
+
+    $trip = new Trip($dbCon, 300);
+    echo "<br/>Trip ID: 300 (DNE)<br/>";
+
+    $result_getTripId = $trip->getTripId() == -1 ? "pass" : "fail";
+    echo ("Test getTripId(): " . $result_getTripId . "<br/>");
 ?>

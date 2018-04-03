@@ -18,9 +18,16 @@
             ));
             $trip = $stmt->fetch();
 
-            $this->m_startingClientId = $trip['startingClientId'];
-            $this->m_endingClientId = $trip['endingClientId'];
-            $this->m_date = $trip['date'];
+            if (!empty($trip))
+            {
+                $this->m_startingClientId = $trip['startingClientId'];
+                $this->m_endingClientId = $trip['endingClientId'];
+                $this->m_date = $trip['date'];
+            }
+            else
+            {
+                $this->m_tripId = -1;
+            }
         }
 
         function getTripId()
