@@ -1,0 +1,25 @@
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
+  }
+}
+
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+mainClassName = 'io.github.theotteraaron.cst438groupproject.MapsRestApplication'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compile 'com.sparkjava:spark-core:2.7.1'
+    compile 'com.google.maps:google-maps-services:0.2.6'
+    compile 'junit:junit:4.12'
+}
