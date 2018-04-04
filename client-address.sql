@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `mileage_tracker` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `mileage_tracker`;
 -- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
 --
 -- Host: localhost    Database: mileage_tracker
@@ -25,13 +23,13 @@ DROP TABLE IF EXISTS `address`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `address` (
-  `addresId` int(11) NOT NULL,
+  `addressId` int(11) NOT NULL,
   `addressLine1` varchar(45) DEFAULT NULL,
   `addressLine2` varchar(45) DEFAULT NULL,
   `city` varchar(45) DEFAULT NULL,
   `state` varchar(45) DEFAULT NULL,
   `zip` int(11) DEFAULT NULL,
-  PRIMARY KEY (`addresId`)
+  PRIMARY KEY (`addressId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -58,7 +56,7 @@ CREATE TABLE `client` (
   `addressId` int(11) DEFAULT NULL,
   PRIMARY KEY (`clientId`),
   KEY `addressId_idx` (`addressId`),
-  CONSTRAINT `addressId` FOREIGN KEY (`addressId`) REFERENCES `address` (`addresId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `addressId` FOREIGN KEY (`addressId`) REFERENCES `address` (`addressId`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -81,4 +79,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-29 10:52:53
+-- Dump completed on 2018-04-03 17:20:30

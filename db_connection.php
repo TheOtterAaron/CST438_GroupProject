@@ -1,9 +1,9 @@
 <?php
 
 $host     = "localhost";
-$dbname   = ""; //change this to your otterID
-$username = ""; //change this to your otter ID
-$password = ""; //change this to your database account password
+$dbname   = "mileage_tracker";
+$username = "root"; //change this to your otter ID
+$password = "mrRabbitRocks96"; //change this to your database account password
 
 // establish database connection
 try
