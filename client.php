@@ -24,9 +24,19 @@ class Client
 
     }
 
+    function getClientId()
+    {
+        return $this->m_id;
+    }
+
     function getClientName()
     {
         return $this->m_name;
+    }
+
+    function getAddressId()
+    {
+        return $this->m_addressId;
     }
 }
 

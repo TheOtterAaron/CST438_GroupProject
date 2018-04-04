@@ -34,6 +34,32 @@ class Address
     {
         return $this->m_addressId;
     }
+
+    function getAddressLine1()
+    {
+        return $this->m_addressLine1;
+    }
+
+    function getAddressLine2()
+    {
+        return $this->m_addressLine2;
+    }
+
+    function getCity()
+    {
+        return $this->m_city;
+    }
+
+    function getState()
+    {
+        return $this->m_state;
+    }
+
+    function getZip()
+    {
+        return $this->m_zip;
+    }
+
 }
 
 $address = new Address(1);
