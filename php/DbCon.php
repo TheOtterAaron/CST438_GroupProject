@@ -1,11 +1,17 @@
 <?php
 
-    $host       = "localhost";
-    $dbname     = "mileage_tracker";
-    $username   = "gord1861";
-    $password   = "pass123";
+    require_once("DbCreds.php");
 
-    $dbCon = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    try
+    {
+        $dbCon = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    }
+    catch(Exception $e)
+    {
+        echo"Unable to connect to database!";
+        exit();
+    }
+
     $dbCon->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 ?>

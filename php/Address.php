@@ -1,5 +1,5 @@
 <?php
-require 'db_connection.php';
+require 'DbCon.php';
 
 class Address
 {
@@ -14,9 +14,9 @@ class Address
     function __construct($addressId)
     {
 
-        global $dbConn;
+        global $dbCon;
         $sql = "SELECT addressId, addressLine1, addressLine2, city, state, zip FROM address WHERE addressId = $addressId";
-        $stmt = $dbConn->prepare($sql);
+        $stmt = $dbCon->prepare($sql);
         //print_r($stmt);
         $stmt -> execute();
         $result = $stmt -> fetch();
