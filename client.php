@@ -39,6 +39,3 @@ class Client
         return $this->m_addressId;
     }
 }
-
-$client = new Client(1);
-print_r($client);
