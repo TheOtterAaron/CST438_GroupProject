@@ -1,6 +1,6 @@
 <?php
 
-require_once("client.php");
+require_once("../Client.php");
 
 $client = new Client(1);
 
