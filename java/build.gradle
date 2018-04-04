@@ -11,7 +11,13 @@ apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'com.github.johnrengelman.shadow'
 
-mainClassName = 'io.github.theotteraaron.cst438groupproject.MapsRestApplication'
+mainClassName = 'com.github.theotteraaron.cst438groupproject.MapsRestApplication'
+
+shadowJar {
+   baseName = 'MapsAPIRest'
+   classifier = null
+   version = null
+}
 
 repositories {
     mavenCentral()
