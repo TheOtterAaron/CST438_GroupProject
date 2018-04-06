@@ -10,7 +10,9 @@ import java.net.URLEncoder;
 
 import org.junit.Test;
 
+import com.github.theotteraaron.cst438groupproject.ApiKeyNotSetException;
 import com.github.theotteraaron.cst438groupproject.MapsRestApplication;
+import com.github.theotteraaron.cst438groupproject.config.Configuration;
 
 public class TestMapsApi {
 
@@ -18,7 +20,31 @@ public class TestMapsApi {
 	public void testRestApi()
 	{
 		//https://www.mkyong.com/webservices/jax-rs/restfull-java-client-with-java-net-url/
-		MapsRestApplication.createSparkInstance();
+		try 
+		{
+			MapsRestApplication
+			.createFromConfig()
+			.build();
+		} 
+		catch (ApiKeyNotSetException ex) 
+		{
+			ex.printStackTrace();
+		}
+		
+		Configuration config = Configuration.load(MapsRestApplication.configFile);
+		Integer port = 4567;
+		String path = "/mapsapi";
+		
+		if(config.hasPath("port"))
+		{
+			port = config.getInt("port");
+		}
+		
+		if(config.hasPath("path"))
+		{
+			path = config.getString("path");
+		}
+		
 		try 
 		{
 			StringBuilder sb = new StringBuilder();
@@ -26,7 +52,7 @@ public class TestMapsApi {
 			sb.append(URLEncoder.encode("Disneyland Park", "UTF-8"));
 			sb.append("&destination=");
 			sb.append(URLEncoder.encode("Fisherman's Wharf, San Francisco, CA", "UTF-8"));
-			URL url = new URL("http://localhost:4567/mapsapi" + sb.toString());
+			URL url = new URL("http://localhost:" + port + path + sb.toString());
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("GET");
 	

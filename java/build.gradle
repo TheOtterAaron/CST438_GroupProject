@@ -28,4 +28,6 @@ dependencies {
     compile 'com.sparkjava:spark-core:2.7.1'
     compile 'com.google.maps:google-maps-services:0.2.6'
     compile 'junit:junit:4.12'
+    compile 'ninja.leaping.configurate:configurate-yaml:3.3'
+	compileOnly 'org.projectlombok:lombok:1.16.18'
 }
