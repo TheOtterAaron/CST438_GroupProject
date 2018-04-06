@@ -8,7 +8,9 @@ port: 9999 #Port to run spark server on
 path: "/mapsapi" #Path of api
 ````
 
-Configure the configuration file, above is an example.
+Configure the configuration file, above is an example. 
+
+All fields besides `api-key` are optional.
 
 Then run the appropriate run file for your platform.
 
