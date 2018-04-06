@@ -1,7 +1,14 @@
 # Usage
-Create a file named `apikey.txt` in the same directory as the jar file.
+Create a file named `config.yml` in the same directory as the jar file.
 
-Insert your google maps api key in the first line of the document.
+Example config.yml
+```
+api-key: "key" #Google maps api key
+port: 9999 #Port to run spark server on
+path: "/mapsapi" #Path of api
+````
+
+Configure the configuration file, above is an example.
 
 Then run the appropriate run file for your platform.
 
