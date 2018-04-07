@@ -8,7 +8,7 @@
         function __construct($dbCon, $sheetId)
         {
             $this->$m_sheetid = $sheetId;
-            $sql = "SELECT * FROM trip WHERE sheetId = :sheetId";
+            $sql = "SELECT * FROM expenseSheet WHERE sheetId = :sheetId";
             $stmt = $dbCon->prepare($sql);
             $stmt->execute(array(
                 ":sheetId" => $this->$m_sheetid
@@ -16,6 +16,7 @@
             $sheet = $stmt->fetch();
             if (!empty($sheet))
             {
+                $this->m_sheetid = $sheetId;
                 $this->m_name = $sheet['name'];
                 $this->m_dateCreated; = $sheet['dateCreated'];
             }

@@ -18,7 +18,7 @@
     $sheet = new Sheet($dbCon, 4);
     echo "<br/>Sheet ID: 4<br/>";
 
-    $result_getSheetId = $sheet->getTripId() == 4 ? "pass" : "fail";
+    $result_getSheetId = $sheet->getSheetId() == 4 ? "pass" : "fail";
     echo ("Test getSheetId: " . $result_getSheetId . "<br/>");
 
     $result_getName = $sheet->getName() == "mira" ? "pass" : "fail";

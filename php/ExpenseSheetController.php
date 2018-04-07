@@ -9,7 +9,7 @@
         }
         function createSheet($name, $dateCreated)
         {
-            $sql = "INSERT INTO trip
+            $sql = "INSERT INTO expenseSheet
                     (sheetid, name, dateCreated)
                     VALUES
                     (NULL, :name, :dateCreated)";
@@ -23,7 +23,7 @@
         }
         function updateSheet($sheetid, $name, $dateCreated)
         {
-            $sql = "UPDATE sheet
+            $sql = "UPDATE expenseSheet
                     SET name = :name,
                         dateCreated = :dateCreated
                     WHERE sheetid = :sheetid";
@@ -38,7 +38,7 @@
         }
         function deleteSheet($sheetid)
         {
-            $sql = "DELETE FROM trip WHERE sheetid = :sheetid";
+            $sql = "DELETE FROM expenseSheet WHERE sheetid = :sheetid";
             $stmt = $this->m_dbCon->prepare($sql);
             $stmt->execute(array(
                 ":sheetid" => $sheetid
