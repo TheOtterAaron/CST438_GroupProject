@@ -3,7 +3,7 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 CREATE SCHEMA IF NOT EXISTS `mileage_tracker` DEFAULT CHARACTER SET utf8;
-USE `mileage_tracker`
+USE `mileage_tracker`;
 
 DROP TABLE IF EXISTS mileage_tracker.expense_sheet;
 
@@ -19,16 +19,16 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 INSERT INTO mileage_tracker.expense_sheet
-VALUES (NULL, 0, "city", "2018-04-02 00:00:00");
+VALUES (NULL, "city", "2018-04-02 00:00:00");
 
 INSERT INTO mileage_tracker.expense_sheet
-VALUES (NULL, 1, "mira", "2018-04-02 00:00:00");
+VALUES (NULL, "mira", "2018-04-02 00:00:00");
 
 INSERT INTO mileage_tracker.expense_sheet
-VALUES (NULL, 0, "metropolis", "2018-04-02 00:00:00");
+VALUES (NULL, "metropolis", "2018-04-02 00:00:00");
 
 INSERT INTO mileage_tracker.expense_sheet
-VALUES (NULL, 2, "city", "2018-04-02 00:00:00");
+VALUES (NULL, "city", "2018-04-02 00:00:00");
 
 INSERT INTO mileage_tracker.expense_sheet
-VALUES (NULL, 1, "mira", "2018-04-02 00:00:00");
+VALUES (NULL, "mira", "2018-04-02 00:00:00");

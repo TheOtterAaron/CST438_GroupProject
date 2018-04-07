@@ -1,5 +1,5 @@
 <?php
-    require_once("Sheet.php");
+    require_once("ExpenseSheet.php");
     class SheetController
     {
         private $m_dbCon;
@@ -9,8 +9,8 @@
         }
         function createSheet($name, $dateCreated)
         {
-            $sql = "INSERT INTO expenseSheet
-                    (sheetid, name, dateCreated)
+            $sql = "INSERT INTO expense_sheet
+                    (sheetId, name, dateCreated)
                     VALUES
                     (NULL, :name, :dateCreated)";
             $stmt = $this->m_dbCon->prepare($sql);
@@ -21,27 +21,27 @@
             
             return new Sheet($this->m_dbCon, $this->m_dbCon->lastInsertId());
         }
-        function updateSheet($sheetid, $name, $dateCreated)
+        function updateSheet($sheetId, $name, $dateCreated)
         {
-            $sql = "UPDATE expenseSheet
+            $sql = "UPDATE expense_sheet
                     SET name = :name,
                         dateCreated = :dateCreated
-                    WHERE sheetid = :sheetid";
+                    WHERE sheetId = :sheetId";
             $stmt = $this->m_dbCon->prepare($sql);
             $stmt->execute(array(
-                ":sheetid" => $sheetid,
+                ":sheetId" => $sheetId,
                 ":name" => $name,
                 ":dateCreated" => $dateCreated
             ));
             
-            return new Sheet($this->m_dbCon, $sheetid);
+            return new Sheet($this->m_dbCon, $sheetId);
         }
-        function deleteSheet($sheetid)
+        function deleteSheet($sheetId)
         {
-            $sql = "DELETE FROM expenseSheet WHERE sheetid = :sheetid";
+            $sql = "DELETE FROM expenseSheet WHERE sheetId = :sheetId";
             $stmt = $this->m_dbCon->prepare($sql);
             $stmt->execute(array(
-                ":sheetid" => $sheetid
+                ":sheetId" => $sheetId
             ));
         }
     }
