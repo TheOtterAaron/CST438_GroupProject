@@ -11,7 +11,7 @@
         "New York",
         "NY",
         12345);
-    echo "Create new address<br/>";
+    echo "Creating a new address<br/>";
 
     assertEqual($address->getAddressId(), 1, "getAddressId()");
     assertEqual($address->getAddressLine1(), "123 Imaginary Lane", "getAddressLine1()");
@@ -20,13 +20,13 @@
     assertEqual($address->getState(), "NY", "getState()");
     assertEqual($address->getZip(), 12345, "getZip()");
 
-    // Test address mutators
+    // Test mutating address
     $address->setAddressLine1("456 Fantasy Road");
     $address->setAddressLine2("Apt 64");
     $address->setCity("Los Angeles");
     $address->setState("CA");
     $address->setZip(90210);
-    echo "<br/>Mutate address<br/>";
+    echo "<br/>Mutating address<br/>";
 
     assertEqual($address->getAddressId(), 1, "getAddressId()");
     assertEqual($address->getAddressLine1(), "456 Fantasy Road", "getAddressLine1()");
