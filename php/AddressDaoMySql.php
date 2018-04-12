@@ -1,141 +1,41 @@
 <?php
 
     require_once("iAddressDao.php");
+    require_once("GenericMySqlDao.php");
+    require_once("MySqlStrategyAddress.php");
 
     class AddressDaoMySql implements iAddressDao
     {
-        private $m_dbCon;
+        private $m_mySqlDao;
 
         public function __construct($dbCon)
         {
-            $this->m_dbCon = $dbCon;
+            $this->m_mySqlDao = new GenericMySqlDao($dbCon, new MySqlStrategyAddress());
         }
 
         public function getAddress($addressId)
         {
-            $sql = "SELECT * FROM address WHERE addressId = :addressId";
-            $stmt = $this->m_dbCon->prepare($sql);
-            $stmt->execute(array(
-                ":addressId" => $addressId
-            ));
-            $address = $stmt->fetch();
-
-            if (!empty($address))
-            {
-                return new Address(
-                    $address['addressId'],
-                    $address['addressLine1'],
-                    $address['addressLine2'],
-                    $address['city'],
-                    $address['state'],
-                    $address['zip']
-                );
-            }
-            
-            return new Address(-1, "", "", "", "", 0);
+            return $this->m_mySqlDao->getObject($addressId);
         }
 
         public function getAddresses($addressIds)
         {
-            $sql = "SELECT * 
-                    FROM address
-                    WHERE addressId IN (" .
-                        str_repeat("?,", count($addressIds) - 1) . "?" .
-                    ")";
-            $stmt = $this->m_dbCon->prepare($sql);
-            $stmt->execute($addressIds);
-            $rows = $stmt->fetchAll();
-
-            $addresses = array();
-            foreach ($rows as $k => $row)
-            {
-                $addresses[$k] = new Address(
-                    $row['addressId'],
-                    $row['addressLine1'],
-                    $row['addressLine2'],
-                    $row['city'],
-                    $row['state'],
-                    $row['zip']
-                );
-            }
-
-            return $addresses;
+            return $this->m_mySqlDao->getObjects($addressIds);
         }
 
         public function addAddress($address)
         {
-            $sql = "INSERT INTO address
-                    (addressId, addressLine1, addressLine2, city, state, zip)
-                    VALUES
-                    (NULL, :addressLine1, :addressLine2, :city, :state, :zip)";
-            $stmt = $this->m_dbCon->prepare($sql);
-            $stmt->execute(array(
-                ":addressLine1" => $address->getAddressLine1(),
-                ":addressLine2" => $address->getAddressLine2(),
-                ":city" => $address->getCity(),
-                ":state" => $address->getState(),
-                ":zip" => $address->getZip()
-            ));
-
-            return new Address(
-                $this->m_dbCon->lastInsertId(),
-                $address->getAddressLine1(),
-                $address->getAddressLine2(),
-                $address->getCity(),
-                $address->getState(),
-                $address->getZip()
-            );
+            return $this->m_mySqlDao->addObject($address);
         }
 
         public function updateAddress($address)
         {
-            try
-            {
-                $sql = "UPDATE address
-                        SET addressLine1 = :addressLine1,
-                            addressLine2 = :addressLine2,
-                            city = :city,
-                            state = :state,
-                            zip = :zip
-                        WHERE addressId = :addressId";
-                $stmt = $this->m_dbCon->prepare($sql);
-                $stmt->execute(array(
-                    ":addressId" => $address->getAddressId(),
-                    ":addressLine1" => $address->getAddressLine1(),
-                    ":addressLine2" => $address->getAddressLine2(),
-                    ":city" => $address->getCity(),
-                    ":state" => $address->getState(),
-                    ":zip" => $address->getZip()
-                ));
-            }
-            catch (Exception $e)
-            {
-                return false;
-            }
-            
-            return true;
+            return $this->m_mySqlDao->updateObject($address);
         }
 
         public function deleteAddress($addressId)
         {
-            $sql = "SELECT count(*) FROM address WHERE addressId = :addressId";
-            $stmt = $this->m_dbCon->prepare($sql);
-            $stmt->execute(array(
-                ":addressId" => $addressId
-            ));
-            $count = $stmt->fetch();
-            if ($count["count(*)"] == 0)
-            {
-                return false;
-            }
-
-            $sql = "DELETE FROM address WHERE addressId = :addressId";
-            $stmt = $this->m_dbCon->prepare($sql);
-            $stmt->execute(array(
-                ":addressId" => $addressId
-            ));
-
-            return true;
+            return $this->m_mySqlDao->deleteObject($addressId);
         }
     }
 
