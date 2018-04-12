@@ -37,11 +37,29 @@
 
         public function getAddresses($addressIds)
         {
-            return array(
-                new Address(-1, "", "", "", "", 0),
-                new Address(-1, "", "", "", "", 0),
-                new Address(-1, "", "", "", "", 0)
-            );
+            $sql = "SELECT * 
+                    FROM address
+                    WHERE addressId IN (" .
+                        str_repeat("?,", count($addressIds) - 1) . "?" .
+                    ")";
+            $stmt = $this->m_dbCon->prepare($sql);
+            $stmt->execute($addressIds);
+            $rows = $stmt->fetchAll();
+
+            $addresses = array();
+            foreach ($rows as $k => $row)
+            {
+                $addresses[$k] = new Address(
+                    $row['addressId'],
+                    $row['addressLine1'],
+                    $row['addressLine2'],
+                    $row['city'],
+                    $row['state'],
+                    $row['zip']
+                );
+            }
+
+            return $addresses;
         }
 
         public function addAddress($address)
