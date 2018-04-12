@@ -58,6 +58,14 @@
     assertEqual($address->getState(), "NY", "getState()");
     assertEqual($address->getZip(), 12345, "getZip()");
 
+    // Test fetching multiple addresses
+    echo "<br/>Fetching multiple addreses<br/>";
+
+    $addresses = $addressDao->getAddresses(array(1, 2, $savedAddress->getAddressId()));
+    assertEqual($addresses[0]->getAddressLine1(), "7855 Southfront Road", "getAddressLine1()");
+    assertEqual($addresses[1]->getCity(), "Cypress", "getAddressCity()");
+    assertEqual($addresses[2]->getZip(), 12345, "getZip()");
+
     // Test updating address
     echo "<br/>Updating address<br/>";
 

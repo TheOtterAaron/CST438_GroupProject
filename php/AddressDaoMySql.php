@@ -35,6 +35,15 @@
             return new Address(-1, "", "", "", "", 0);
         }
 
+        public function getAddresses($addressIds)
+        {
+            return array(
+                new Address(-1, "", "", "", "", 0),
+                new Address(-1, "", "", "", "", 0),
+                new Address(-1, "", "", "", "", 0)
+            );
+        }
+
         public function addAddress($address)
         {
             $sql = "INSERT INTO address
