@@ -1,14 +1,8 @@
 package com.github.theotteraaron.cst438groupproject.config;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.file.Path;
-import java.util.concurrent.Callable;
 
-import lombok.Cleanup;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 
@@ -42,35 +36,5 @@ public class Configuration extends ConfigurationSection {
 	public static Configuration load(@NonNull Path path)
 	{
 		return load(path.toFile());
-	}
-	
-	@SneakyThrows(IOException.class)
-	public static Configuration load(@NonNull InputStream stream, @NonNull ConfigurationType type)
-	{
-		Configuration config = new Configuration();
-		ConfigurationNode node = null;
-		@Cleanup
-		BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-		Callable<BufferedReader> callable = new Callable<BufferedReader>() 
-		{
-			
-			@Override
-			public BufferedReader call()
-			{
-				return reader;
-			}
-		};
-		
-		if(type == ConfigurationType.YAML)
-		{
-			ConfigurationLoader<ConfigurationNode> loader = YAMLConfigurationLoader
-					.builder()
-					.setSource(callable)
-					.build();
-			node = loader.load();
-		}
-		
-		config.node = node;
-		return config;
 	}
 }
