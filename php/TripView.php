@@ -62,8 +62,16 @@
         if (empty($error))
         {
             echo "<h1>Trip View</h1>";
-            echo "<p>Starting Client: " . $clients[0]->getName() . " (" . $addresses[0]->getZip() . ")</p>";
-            echo "<p>Ending Client: " . $clients[1]->getName() . " (" . $addresses[1]->getZip() . ")</p>";
+            echo "<p>Starting Client: " .
+                "<a href='ClientView.php?clientId=" . $clients[0]->getClientId() . "'>" .
+                    $clients[0]->getName() .
+                "</a>" .
+                " (" . $addresses[0]->getZip() . ")</p>";
+            echo "<p>Ending Client: " .
+                "<a href='ClientView.php?clientId=" . $clients[1]->getClientId() . "'>" .
+                    $clients[1]->getName() .
+                "</a>" .
+                " (" . $addresses[1]->getZip() . ")</p>";
             echo "<p>Date: " . $trip->getDate() . "</p>";
         }
         else
