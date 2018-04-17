@@ -7,47 +7,47 @@
         private $m_endingClientId;
         private $m_date;
 
-        function __construct($dbCon, $tripId)
+        public function __construct($tripId, $startingClientId, $endingClientId, $date)
         {
             $this->m_tripId = $tripId;
-
-            $sql = "SELECT * FROM trip WHERE tripId = :tripId";
-            $stmt = $dbCon->prepare($sql);
-            $stmt->execute(array(
-                ":tripId" => $this->m_tripId
-            ));
-            $trip = $stmt->fetch();
-
-            if (!empty($trip))
-            {
-                $this->m_startingClientId = $trip['startingClientId'];
-                $this->m_endingClientId = $trip['endingClientId'];
-                $this->m_date = $trip['date'];
-            }
-            else
-            {
-                $this->m_tripId = -1;
-            }
+            $this->m_startingClientId = $startingClientId;
+            $this->m_endingClientId = $endingClientId;
+            $this->m_date = $date;
         }
 
-        function getTripId()
+        public function getTripId()
         {
             return $this->m_tripId;
         }
 
-        function getStartingClientId()
+        public function getStartingClientId()
         {
             return $this->m_startingClientId;
         }
 
-        function getEndingClientId()
+        public function setStartingClientId($value)
+        {
+            $this->m_startingClientId = $value;
+        } 
+
+        public function getEndingClientId()
         {
             return $this->m_endingClientId;
         }
 
-        function getDate()
+        public function setEndingClientId($value)
+        {
+            $this->m_endingClientId = $value;
+        }
+
+        public function getDate()
         {
             return $this->m_date;
+        }
+
+        public function setDate($value)
+        {
+            $this->m_date = $value;
         }
     }
 
