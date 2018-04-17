@@ -1,14 +1,16 @@
 <?php
 
     require_once("iClientDao.php");
+    require_once("GenericMySqlDao.php");
+    require_once("MySqlStrategyClient.php");
 
     class ClientDaoMySql implements iClientDao
     {
-        private $m_dbCon;
+        private $m_mySqlDao;
 
         public function __construct($dbCon)
         {
-            $this->m_dbCon = $dbCon;
+            $this->m_mySqlDao = new GenericMySqlDao($dbCon, new MySqlStrategyClient());
         }
 
         public function getClient($clientId)
