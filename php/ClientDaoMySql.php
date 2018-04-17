@@ -15,31 +15,27 @@
 
         public function getClient($clientId)
         {
-            return new Client(0, "", 0);
+            return $this->m_mySqlDao->getObject($clientId);
         }
 
         public function getClients($clientIds)
         {
-            return array(
-                new Client(0, "", 0),
-                new Client(0, "", 0),
-                new Client(0, "", 0)
-            );
+            return $this->m_mySqlDao->getObjects($clientIds);
         }
 
         public function addClient($client)
         {
-            return new Client(0, "", 0);
+            return $this->m_mySqlDao->addObject($client);
         }
 
         public function updateClient($client)
         {
-            false;
+            return $this->m_mySqlDao->updateObject($client);
         }
 
         public function deleteClient($clientId)
         {
-            false;
+            return $this->m_mySqlDao->deleteObject($clientId);
         }
     }
 
