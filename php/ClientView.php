@@ -1,5 +1,5 @@
 <?php
-require 'db_connection.php';
+require 'DbCon.php';
 
 $client = new Client(1);
 ?>

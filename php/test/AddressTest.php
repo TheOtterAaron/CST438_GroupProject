@@ -1,6 +1,6 @@
 <?php
 
-require_once("address.php");
+require_once("../Address.php");
 
 $address = new Address(1);
 

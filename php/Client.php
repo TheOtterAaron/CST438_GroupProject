@@ -1,5 +1,5 @@
 <?php
-require 'db_connection.php';
+require 'DbCon.php';
 
 
 class Client
@@ -11,10 +11,12 @@ class Client
 
     function __construct($clientId)
     {
-        global $dbConn;
-        $sql = "SELECT clientId, name, addressId FROM client WHERE clientId = $clientId";
-        $stmt = $dbConn -> prepare($sql);
-        $stmt -> execute();
+        global $dbCon;
+        $sql = "SELECT clientId, name, addressId FROM client WHERE clientId = :clientId";
+        $stmt = $dbCon -> prepare($sql);
+        $stmt->execute(array(
+            ":clientId" => $clientId
+        ));
         $result = $stmt -> fetch();
         $this->m_id = $result["clientId"];
         $this->m_name = $result["name"];
