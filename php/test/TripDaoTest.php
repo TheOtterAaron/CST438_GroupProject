@@ -11,8 +11,8 @@
 
     $trip = $tripDao->getTrip(1);
     assertEqual($trip->getTripId(), 1, "getTripId()");
-    assertEqual($trip->getStartingClientId(), 0, "getStartingClientId()");
-    assertEqual($trip->getEndingClientId(), 1, "getEndingClientId()");
+    assertEqual($trip->getStartingClientId(), 1, "getStartingClientId()");
+    assertEqual($trip->getEndingClientId(), 2, "getEndingClientId()");
     assertEqual($trip->getDate(), "2018-04-02 00:00:00", "getDate()");
 
     // Test fetching trip 2
@@ -21,7 +21,7 @@
     $trip = $tripDao->getTrip(2);
     assertEqual($trip->getTripId(), 2, "getTripId()");
     assertEqual($trip->getStartingClientId(), 1, "getStartingClientId()");
-    assertEqual($trip->getEndingClientId(), 0, "getEndingClientId()");
+    assertEqual($trip->getEndingClientId(), 2, "getEndingClientId()");
     assertEqual($trip->getDate(), "2018-04-02 00:00:00", "getDate()");
 
     // Test fetching trip 500 (DNE)
@@ -54,8 +54,8 @@
     echo "<br/>Fetching multiple trips<br/>";
 
     $trips = $tripDao->getTrips(array(1, 2, $savedTrip->getTripId()));
-    assertEqual($trips[0]->getStartingClientId(), 0, "startingClientId()");
-    assertEqual($trips[1]->getEndingClientId(), 0, "endingClientId()");
+    assertEqual($trips[0]->getStartingClientId(), 1, "startingClientId()");
+    assertEqual($trips[1]->getEndingClientId(), 2, "endingClientId()");
     assertEqual($trips[2]->getDate(), "2018-04-15 00:00:00", "getDate()");
 
     // Test updating trip
