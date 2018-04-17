@@ -1,24 +1,47 @@
 <?php
 
     require_once("DbCon.php");
-    require_once("Client.php");
-    require_once("Address.php");
-    require_once("Trip.php");
-    require_once("TripController.php");
+	require_once("TripDaoMySql.php");
+	require_once("ClientDaoMySql.php");
+	require_once("AddressDaoMySql.php");
+
+    $tripDao = new TripDaoMySql($dbCon);
+    $clientDao = new ClientDaoMySql($dbCon);
+    $addressDao = new AddressDaoMySql($dbCon);
 
     if (isset($_GET['tripId']))
     {
-        $trip = new Trip($dbCon, $_GET['tripId']);
+        $trip = $tripDao->getTrip($_GET['tripId']);
         
-        $startingClient = new Client($trip->getStartingClientId());
-        $endingClient = new Client($trip->getEndingClientId());
-
-        $startingAddress = new Address($startingClient->getAddressId());
-        $endingAddress = new Address($endingClient->getAddressId());
-
         if ($trip->getTripId() == -1)
         {
             $error = "Trip not found";
+        }
+        else
+        {
+            $clients = $clientDao->getClients(array(
+                $trip->getStartingClientId(),
+                $trip->getEndingClientId()
+            ));
+    
+            if ($clients[0]->getClientId() == -1 ||
+                $clients[1]->getClientId() == -1)
+            {
+                $error = "Starting or ending client not found";   
+            }
+            else
+            {
+                $addresses = $addressDao->getAddresses(array(
+                    $clients[0]->getAddressId(),
+                    $clients[1]->getAddressId()
+                ));
+
+                if ($addresses[0]->getAddressId() == -1 ||
+                    $addresses[1]->getAddressId() == -1)
+                {
+                    $error = "Starting or ending address not found"   ;
+                }
+            }
         }
     }
     else
@@ -28,17 +51,25 @@
 
 ?>
 
-<h1>Trip View</h1>
 
-<?php
-    if (empty($error))
-    {
-        echo "<p>Starting Client: " . $startingClient->getClientName() . " (" . $startingAddress->getZip() . ")</p>";
-        echo "<p>Ending Client: " . $endingClient->getClientName() . " (" . $endingAddress->getZip() . ")</p>";
-        echo "<p>Date: " . $trip->getDate() . "</p>";
-    }
-    else
-    {
-        echo "<p>" . $error . "</p>";
-    }
-?>
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Mileage Tracker - Viewing Trip</title>
+	</head>
+	<body>
+    <?php
+        if (empty($error))
+        {
+            echo "<h1>Trip View</h1>";
+            echo "<p>Starting Client: " . $clients[0]->getName() . " (" . $addresses[0]->getZip() . ")</p>";
+            echo "<p>Ending Client: " . $clients[1]->getName() . " (" . $addresses[1]->getZip() . ")</p>";
+            echo "<p>Date: " . $trip->getDate() . "</p>";
+        }
+        else
+        {
+            echo "<p>" . $error . "</p>";
+        }
+    ?>
+    </body>
+</html>
