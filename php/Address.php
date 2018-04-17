@@ -1,7 +1,5 @@
 <?php
 
-    require 'DbCon.php';
-
     class Address
     {
         private $m_addressId;

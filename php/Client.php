@@ -1,7 +1,5 @@
 <?php
 
-    require 'DbCon.php';
-
     class Client
     {
 

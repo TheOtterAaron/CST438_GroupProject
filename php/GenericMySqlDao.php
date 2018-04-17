@@ -1,5 +1,7 @@
 <?php
 
+    require_once("iMySqlStrategy.php");
+
     class GenericMySqlDao
     {
         private $m_dbCon;
