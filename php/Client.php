@@ -1,41 +1,45 @@
 <?php
-require 'DbCon.php';
 
+    require 'DbCon.php';
 
-class Client
-{
-
-    var $m_id;
-    var $m_name;
-    var $m_addressId;
-
-    function __construct($clientId)
+    class Client
     {
-        global $dbCon;
-        $sql = "SELECT clientId, name, addressId FROM client WHERE clientId = $clientId";
-        $stmt = $dbCon -> prepare($sql);
-        $stmt -> execute();
-        $result = $stmt -> fetch();
-        $this->m_id = $result["clientId"];
-        $this->m_name = $result["name"];
-        $this->m_addressId = $result["addressId"];
-        //print_r($result);
-        return $result;
 
+        private $m_clientId;
+        private $m_name;
+        private $m_addressId;
+
+        public function __construct($clientId, $name, $addressId)
+        {
+            $this->m_clientId = $clientId;
+            $this->m_name = $name;
+            $this->m_addressId = $addressId;
+        }
+
+        public function getClientId()
+        {
+            return $this->m_clientId;
+        }
+
+        public function getName()
+        {
+            return $this->m_name;
+        }
+
+        public function setName($value)
+        {
+            $this->m_name = $value;
+        }
+
+        public function getAddressId()
+        {
+            return $this->m_addressId;
+        }
+
+        public function setAddressId($value)
+        {
+            $this->m_addressId = $value;
+        }
     }
 
-    function getClientId()
-    {
-        return $this->m_id;
-    }
-
-    function getClientName()
-    {
-        return $this->m_name;
-    }
-
-    function getAddressId()
-    {
-        return $this->m_addressId;
-    }
-}
+?>
