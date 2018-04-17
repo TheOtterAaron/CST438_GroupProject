@@ -7,8 +7,29 @@
 	$clientDao = new ClientDaoMySql($dbCon);
 	$addressDao = new AddressDaoMySql($dbCon);
 
-	$client = $clientDao->getClient(1);
-	$address = $addressDao->getAddress($client->getAddressId());
+	if (isset($_GET['clientId']))
+	{
+		$client = $clientDao->getClient($_GET['clientId']);
+
+		if ($client->getClientId() == -1)
+		{
+			$error = "Client not found";
+		}
+		else
+		{
+			$address = $addressDao->getAddress($client->getAddressId());
+
+			if ($address->getAddressId() == -1)
+			{
+				$error = "Address not found";
+			}
+		}
+	}
+	else
+	{
+		echo "Must provide a client ID";
+		exit;
+	}
 
 ?>
 
