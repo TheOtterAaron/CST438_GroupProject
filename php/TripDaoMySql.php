@@ -1,6 +1,8 @@
 <?php
 
     require_once("iTripDao.php");
+    require_once("GenericMySqlDao.php");
+    require_once("MySqlStrategyTrip.php");
 
     class TripDaoMySql implements iTripDao
     {
@@ -8,36 +10,32 @@
 
         public function __construct($dbCon)
         {
-
+            $this->m_mySqlDao = new GenericMySqlDao($dbCon, new MySqlStrategyTrip());
         }
 
         public function getTrip($tripId)
         {
-            return new Trip(0, -1, -1, "1970-01-01 00:00:00");
+            return $this->m_mySqlDao->getObject($tripId);
         }
 
         public function getTrips($tripIds)
         {
-            return array(
-                new Trip(0, -1, -1, "1970-01-01 00:00:00"),
-                new Trip(0, -1, -1, "1970-01-01 00:00:00"),
-                new Trip(0, -1, -1, "1970-01-01 00:00:00")
-            );
+            return $this->m_mySqlDao->getObjects($tripIds);
         }
 
         public function addTrip($trip)
         {
-            return new Trip(0, -1, -1, "1970-01-01 00:00:00");
+            return $this->m_mySqlDao->addObject($trip);
         }
 
         public function updateTrip($trip)
         {
-            return false;
+            return $this->m_mySqlDao->updateObject($trip);
         }
 
         public function deleteTrip($tripId)
         {
-            return false;
+            return $this->m_mySqlDao->deleteObject($tripId);
         }
     }
 

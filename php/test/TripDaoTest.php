@@ -16,7 +16,7 @@
     assertEqual($trip->getDate(), "2018-04-02 00:00:00", "getDate()");
 
     // Test fetching trip 2
-    echo "Fetching trip 2<br/>";
+    echo "<br/>Fetching trip 2<br/>";
 
     $trip = $tripDao->getTrip(2);
     assertEqual($trip->getTripId(), 2, "getTripId()");
@@ -62,7 +62,7 @@
     echo "<br/>Updating trip<br/>";
 
     $trip->setStartingClientId(8);
-    $trip->setStartingClientId(9);
+    $trip->setEndingClientId(9);
     $trip->setDate("2018-04-16 00:00:00");
     assertEqual($tripDao->updateTrip($trip), true, "updateTrip()");
 
