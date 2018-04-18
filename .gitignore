@@ -1,2 +1,6 @@
-#Ignore apikey file
 apikey.txt
+.DS_Store
+.iml
+.idea
+.idea/
+php/DbCreds.php
