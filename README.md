@@ -8,12 +8,15 @@ This is a proof-of-concept of a mileage tracker application that uses Google Map
 Below are screenshots of the application running in a local development environment.
 
 ![alt text](https://github.com/TheOtterAaron/CST438_GroupProject/blob/master/img/AllTrips.png "Viewing All Trips")
+
 A view of all the trips in the database.  Mechanisms are in place to allow easily limiting this to only trips associated with a particular user or expense sheet.
 
 ![alt text](https://github.com/TheOtterAaron/CST438_GroupProject/blob/master/img/TripView.png "Viewing A Single Trip")
+
 A detailed view of a single trip.  Note the mileage calculation near the bottom of the details.
 
 ![alt text](https://github.com/TheOtterAaron/CST438_GroupProject/blob/master/img/ClientView.png "Viewing A Client")
+
 A detailed view of a client, including full address information.
 
 ## Future Work
