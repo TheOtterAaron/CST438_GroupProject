@@ -2,6 +2,7 @@
 
 require_once("ClientDaoMySql.php");
 require_once("AddressDaoMySql.php");
+require_once("MileageCalculator.php");
 
 interface iTripView
 {
@@ -74,6 +75,8 @@ class TripViewDetail implements iTripView
                 "</a>" .
                 " (" . $endingAddress->getZip() . ")</p>";
             echo "<p>Date: " . $trip->getDate() . "</p>";
+			$mileage = round(calculateMileage($startingAddress, $endingAddress));
+			echo "Mileage: " . $mileage;
         }
         else
         {
@@ -81,3 +84,4 @@ class TripViewDetail implements iTripView
         }
     }
 }
+
