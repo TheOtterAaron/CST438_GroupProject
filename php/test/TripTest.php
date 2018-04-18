@@ -1,43 +1,30 @@
 <?php
 
-    require_once("../DbCon.php");
+    require_once("Assertions.php");
     require_once("../Trip.php");
 
-    $trip = new Trip($dbCon, 1);
-    echo "Trip ID: 1<br/>";
+    // Test creating a new tirp
+    $trip = new Trip(
+        1,
+        1,
+        2,
+        "2018-04-02 00:00:00");
+    echo "Creating new trip<br/>";
+    
+    assertEqual($trip->getTripId(), 1, "getTripId()");
+    assertEqual($trip->getStartingClientId(), 1, "getStartingClientId()");
+    assertEqual($trip->getEndingClientId(), 2, "getEndingClientId()");
+    assertEqual($trip->getDate(), "2018-04-02 00:00:00", "getDate()");
 
-    $result_getTripId = $trip->getTripId() == 1 ? "pass" : "fail";
-    echo ("Test getTripId(): " . $result_getTripId . "<br/>");
+    // Test mutating trip
+    $trip->setStartingClientId(3);
+    $trip->setEndingClientId(5);
+    $trip->setDate("2018-04-15 00:00:00");
+    echo "<br/>Mutating trip<br/>";
 
-    $result_getStartingClientId = $trip->getStartingClientId() == 0 ? "pass" : "fail";
-    echo ("Test getStartingClientId(): " . $result_getStartingClientId . "<br/>");
-
-    $result_getEndingClientId = $trip->getEndingClientId() == 1 ? "pass" : "fail";
-    echo ("Test getEndingClientId(): " . $result_getEndingClientId . "<br/>");
-
-    $result_getDate = $trip->getDate() == "2018-04-02 00:00:00" ? "pass" : "fail";
-    echo ("Test getDate(): " . $result_getDate . "<br/>");
-
-
-    $trip = new Trip($dbCon, 4);
-    echo "<br/>Trip ID: 4<br/>";
-
-    $result_getTripId = $trip->getTripId() == 4 ? "pass" : "fail";
-    echo ("Test getTripId(): " . $result_getTripId . "<br/>");
-
-    $result_getStartingClientId = $trip->getStartingClientId() == 2 ? "pass" : "fail";
-    echo ("Test getStartingClientId(): " . $result_getStartingClientId . "<br/>");
-
-    $result_getEndingClientId = $trip->getEndingClientId() == 1 ? "pass" : "fail";
-    echo ("Test getEndingClientId(): " . $result_getEndingClientId . "<br/>");
-
-    $result_getDate = $trip->getDate() == "2018-04-02 00:00:00" ? "pass" : "fail";
-    echo ("Test getDate(): " . $result_getDate . "<br/>");
-
-
-    $trip = new Trip($dbCon, 300);
-    echo "<br/>Trip ID: 300 (DNE)<br/>";
-
-    $result_getTripId = $trip->getTripId() == -1 ? "pass" : "fail";
-    echo ("Test getTripId(): " . $result_getTripId . "<br/>");
+    assertEqual($trip->getTripId(), 1, "getTripId()");
+    assertEqual($trip->getStartingClientId(), 3, "getStartingClientId()");
+    assertEqual($trip->getEndingClientId(), 5, "getEndingClientId()");
+    assertEqual($trip->getDate(), "2018-04-15 00:00:00", "getDate()");
+    
 ?>

@@ -1,68 +1,38 @@
 <?php
 
-require_once("../Address.php");
+    require_once("Assertions.php");
+    require_once("../Address.php");
 
-$address = new Address(1);
+    // Test creating a new address
+    $address = new Address(
+        1,
+        "123 Imaginary Lane",
+        "Unit 32",
+        "New York",
+        "NY",
+        12345);
+    echo "Creating a new address<br/>";
 
-$m_addressId = $address->getAddressId();
-$m_addressLine1 = $address->getAddressLine1();
-$m_addressLine2 = $address->getAddressLine2();
-$m_city = $address->getCity();
-$m_state = $address->getState();
-$m_zip = $address->getZip();
+    assertEqual($address->getAddressId(), 1, "getAddressId()");
+    assertEqual($address->getAddressLine1(), "123 Imaginary Lane", "getAddressLine1()");
+    assertEqual($address->getAddressLine2(), "Unit 32", "getAddressLine2()");
+    assertEqual($address->getCity(), "New York", "getCity()");
+    assertEqual($address->getState(), "NY", "getState()");
+    assertEqual($address->getZip(), 12345, "getZip()");
 
+    // Test mutating address
+    $address->setAddressLine1("456 Fantasy Road");
+    $address->setAddressLine2("Apt 64");
+    $address->setCity("Los Angeles");
+    $address->setState("CA");
+    $address->setZip(90210);
+    echo "<br/>Mutating address<br/>";
 
-if($m_addressId == "1")
-{
-    print("Address ID Check Success\n");
-}
-else
-{
-    print("Address ID Check Fail\n");
-}
+    assertEqual($address->getAddressId(), 1, "getAddressId()");
+    assertEqual($address->getAddressLine1(), "456 Fantasy Road", "getAddressLine1()");
+    assertEqual($address->getAddressLine2(), "Apt 64", "getAddressLine2()");
+    assertEqual($address->getCity(), "Los Angeles", "getCity()");
+    assertEqual($address->getState(), "CA", "getState()");
+    assertEqual($address->getZip(), 90210, "getZip()");
 
-if($m_addressLine1 == "7855 Southfront Road")
-{
-    print("Address Line 1 Check Success\n");
-}
-else
-{
-    print("Address Line 1 Check Fail\n");
-}
-
-if($m_addressLine2 == "")
-{
-    print("Address Line 2 Check Success\n");
-}
-else
-{
-    print("Address Line 2 Check Fail\n");
-}
-
-if($m_city == "Livermore")
-{
-    print("City Check Success\n");
-}
-else
-{
-    print("City Check Fail\n");
-}
-
-if($m_state == "CA")
-{
-    print("State Check Success\n");
-}
-else
-{
-    print("State Check Fail\n");
-}
-
-if($m_zip == "94551")
-{
-    print("Zip Check Success\n");
-}
-else
-{
-    print("Zip Check Fail\n");
-}
-
+?>

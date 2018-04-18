@@ -1,27 +1,56 @@
 <?php
-require 'DbCon.php';
 
-$client = new Client(1);
+	require_once("DbCon.php");
+	require_once("ClientDaoMySql.php");
+	require_once("AddressDaoMySql.php");
+
+	$clientDao = new ClientDaoMySql($dbCon);
+	$addressDao = new AddressDaoMySql($dbCon);
+
+	if (isset($_GET['clientId']))
+	{
+		$client = $clientDao->getClient($_GET['clientId']);
+
+		if ($client->getClientId() == -1)
+		{
+			$error = "Client not found";
+		}
+		else
+		{
+			$address = $addressDao->getAddress($client->getAddressId());
+
+			if ($address->getAddressId() == -1)
+			{
+				$error = "Address not found";
+			}
+		}
+	}
+	else
+	{
+		echo "Must provide a client ID";
+		exit;
+	}
+
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 	<head>
-		<meta charset="utf-8">
-
-		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
-		Remove this if you use the .htaccess -->
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<link href="styles.css" rel="stylesheet">
-
-		<title>Mileage</title>
-		<meta name="description" content="">
-
-		<meta name="viewport" content="width=device-width; initial-scale=1.0">
-
-		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
-		<link rel="shortcut icon" href="/favicon.ico">
-		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-
-        <h1><?php echo $client.getClientName(); ?></h1>
-        <p><?php echo $client.getAddress(); ?></p>
+		<title>Mileage Tracker - Viewing <?php echo $client->getName(); ?></title>
+	</head>
+	<body>
+		<h1><?php echo $client->getName(); ?></h1>
+		<p><?php echo $address->getAddressLine1(); ?></p>
+		<?php
+			if ($address->getAddressLine2() != "")
+			{
+				echo "<p>" . $address->getAddressLine2() / "</p>";
+			}
+		?>
+		<p><?php
+			echo $address->getCity() . 
+				", " . $address->getState() .
+				" " . $address->getZip();
+		?></p>
+	</body>
+</html>

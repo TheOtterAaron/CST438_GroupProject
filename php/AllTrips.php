@@ -1,20 +1,17 @@
 <?php
-require "DbCon.php";
-require_once("Trip.php");
-require_once("Client.php");
+require_once("DbCon.php");
+require_once("TripDaoMySql.php");
 require_once("TripViewFactory.php");
 
 session_start();
 
-function fetchAllTrips()
+function fetchAllTrips($dbCon)
 {
-    global $dbCon;
-
-    $sql = "SELECT tripId FROM trip;";
-
-    $stmt = $dbCon -> prepare($sql);
-    $stmt -> execute();
-    return $stmt -> fetchAll();
+    $tripDao = new TripDaoMySql($dbCon);
+    return $tripDao->getTrips(array(
+        1, 2, 3, 4, 5, 6,
+        7, 8, 9, 10, 11, 12
+    ));
 }
 
 ?>
@@ -32,17 +29,14 @@ function fetchAllTrips()
             <th>Trip</th>
         </tr>
         <?php
-        $trips = fetchAllTrips();
-        foreach ($trips as $line)
-        {
-            $tripId = $line['tripId'];
-            $trip = new Trip($dbCon, $tripId);
-
             $tripViewLineItem = new TripViewLineItem();
-            $tripViewLineItem->renderTrip($dbCon, $trip);
 
-        }
+            $trips = fetchAllTrips($dbCon);
 
+            for ($i = 0; $i < count($trips); $i++)
+            {
+                $tripViewLineItem->renderTrip($dbCon, $trips[$i]);
+            }
         ?>
     </table>
 </div>
